@@ -1,0 +1,124 @@
+<html ng-app="finances">
+	<head>
+		<title>Finances</title>
+		
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+
+		<link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="lib/iconmoon/style.css">
+		<link rel="stylesheet" href="css/custom.css">
+		
+		<script type="text/javascript" src="lib/jquery/jquery.min.js"></script>
+		<script type="text/javascript" src="lib/bootstrap/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="lib/angular/angular.min.js"></script>
+		<script type="text/javascript" src="lib/angular/angular-locale_pt-br.js"></script>
+		
+		<script type="text/javascript" src="lib/js/apps/finances.js"></script>
+		<script type="text/javascript" src="lib/js/controllers/financesCtrl.js"></script>
+
+	</head>
+	<body ng-controller="financesCtrl" id="financesCtrl">
+		<div ng-include="'view/header.html'"></div>
+		<div class="container">
+			<div class="form-group">
+				<div class="input-group">
+					<span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+					<input class="form-control" type="search" ng-model="busca" placeholder="Busca">
+				</div>
+			</div>
+			<table ng-show="traders.length > 0" class="table table-striped table-bordered">
+				<thead>
+					<tr>
+						<th></th>
+						<th><a href="" ng-click="ordenaPor('codigo')">Código</a></th>
+						<th class="hidden-xs">Data Compra</th>
+						<th class="hidden-xs">Data Venda</th>
+						<th class="hidden-xs"><a href="" ng-click="ordenaPor('valorCompra')">Valor Compra</a></th>
+						<th class="hidden-xs"><a href="" ng-click="ordenaPor('quantidade')">Quantidade</th>
+						<th class="hidden-xs"><a href="">Taxa</th>
+						<th class="hidden-xs"><a href="">Valor Atual</th>
+						<th class="hidden-xs"><a href="">Stop</th>
+						<th class="hidden-xs"><a href="">Gain</th>
+						<th><a href="" ng-click="ordenaPor('rendaAtual')">Renda Atual</th>
+						<th><a href="" ng-click="ordenaPor('percAtual')">% Atual</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="trader in traders | filter: busca | orderBy:search:direcaoOrdenacao" ng-class="{warning: trader.checked}">
+						<td class="text-center"><input type="checkbox" ng-model="trader.checked"></td>
+						<td>{{trader.codigo}}</td>
+						<td class="hidden-xs">{{trader.dataCompra}}</td>
+						<td class="hidden-xs">{{trader.dataVenda | date: 'dd/MM/yyyy'}}</td>
+						<td class="hidden-xs">{{trader.valorCompra | currency}}</td>
+						<td class="hidden-xs">{{trader.quantidade}}</td>
+						<td class="hidden-xs">{{trader.taxa | currency}}</td>
+						<td class="hidden-xs">{{trader.valorAtual | currency}}</td>
+						<td class="hidden-xs">{{trader.stop | currency}}</td>
+						<td class="hidden-xs">{{trader.gain | currency}}</td>
+						<td>{{trader.rendaAtual | currency}}</td>
+						<td>{{trader.percAtual | number:2}} %</td>
+					</tr>		
+				</tbody>
+			</table>
+
+			<div class="row" ng-if="ifTraderChecked(traders)">
+				<div class="col-xs-12 col-sm-6">
+					<div class="form-group">
+						<button class="btn btn-success btn-block" ng-click="venderAcao(traders)">Vender Ação</button>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6">
+					<div class="form-group">
+						<button class="btn btn-danger btn-block" ng-click="apagarAcao(traders)">Apagar Ação</button>
+					</div>
+				</div>
+			</div>
+
+			<form name="traderForm">
+				<div class="well">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="Código" ng-model="trader.codigo" ng-required="true">
+							</div>
+						</div>
+						<div class="col-xs-6 col-sm-6">
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="Valor Compra" ng-model="trader.valorCompra" ng-required="true">
+							</div>
+						</div>
+						<div class="col-xs-6 col-sm-4">
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="Quantidade" ng-model="trader.quantidade" ng-required="true">
+							</div>
+						</div>
+						<div class="col-xs-6 col-sm-4">
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="Data Compra" ng-model="trader.dataCompra" ng-required="true">
+							</div>
+						</div>
+						<div class="col-xs-6 col-sm-4">
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="Taxas" ng-model="trader.taxa">
+							</div>
+						</div>
+						<div class="col-xs-6 col-sm-6">
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="Stop" ng-model="trader.stop" ng-required="true">
+							</div>
+						</div>
+						<div class="col-xs-6 col-sm-6">
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="Gain" ng-model="trader.gain" ng-required="true">
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<button class="btn btn-block btn-primary" ng-click="adicionarCompra(trader)" ng-disabled="traderForm.$error.required">Adicionar Compra</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div ng-include="'view/footer.html'"></div>
+	</body>
+</html>

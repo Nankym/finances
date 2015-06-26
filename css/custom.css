@@ -1,0 +1,81 @@
+.jumbotron {
+	background-color: #ffd247;
+	color: #fff;
+}
+
+.jumbotron h2 small {
+	color: #a0a0a0;
+}
+
+#vendidasCtrl .jumbotron {
+	background-color: #9F171A;
+}
+
+.menu-top-right #menu2 {
+	background-color: #b52b2c;
+	top: 0;
+	right: 0;
+	padding: 15px 40px;
+	font-size: 20px;
+}
+
+.menu-top-right #menu1 {
+	background-color: #c52f31;
+	top: 0;
+	right: 100px;
+	font-size: 20px;
+	padding: 14px 40px;
+	border-bottom-left-radius: 15px;
+}
+
+.menu-top-right ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.menu-top-right .li {
+	position: absolute;
+	margin: 0;
+	display: inline-block;
+}
+
+.menu-top-right .li a {
+	color: #fff;
+	line-height: 20px;
+}
+
+#menu2 .dropdown-menu {
+	left: auto;
+	right: -40px;	
+	top: 35px;
+	border: none;
+	background-color: #b52b2c;
+	border-radius: 0;
+	padding: 0 50px 0 10px;
+	min-width: 230px;
+}
+
+@media screen and (max-width: 1000px) {
+	.menu-top-right #menu2 {
+		right: 0;
+		padding: 10px 40px 11px;
+		font-size: 12px;
+	}
+
+	.menu-top-right #menu1 {
+		right: 92px;
+		font-size: 12px;
+		padding: 10px 40px;
+	}
+
+	.menu-top-right ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.menu-top-right .li a {
+		line-height: 12px;
+	}
+}
