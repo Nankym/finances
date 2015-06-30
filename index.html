@@ -26,40 +26,39 @@
 					<input class="form-control" type="search" ng-model="busca" placeholder="Busca">
 				</div>
 			</div>
-			<table ng-show="traders.length > 0" class="table table-striped table-bordered">
-				<thead>
-					<tr>
-						<th></th>
-						<th><a href="" ng-click="ordenaPor('codigo')">Código</a></th>
-						<th class="hidden-xs">Data Compra</th>
-						<th class="hidden-xs">Data Venda</th>
-						<th class="hidden-xs"><a href="" ng-click="ordenaPor('valorCompra')">Valor Compra</a></th>
-						<th class="hidden-xs"><a href="" ng-click="ordenaPor('quantidade')">Quantidade</th>
-						<th class="hidden-xs"><a href="">Taxa</th>
-						<th class="hidden-xs"><a href="">Valor Atual</th>
-						<th class="hidden-xs"><a href="">Stop</th>
-						<th class="hidden-xs"><a href="">Gain</th>
-						<th><a href="" ng-click="ordenaPor('rendaAtual')">Renda Atual</th>
-						<th><a href="" ng-click="ordenaPor('percAtual')">% Atual</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr ng-repeat="trader in traders | filter: busca | orderBy:search:direcaoOrdenacao" ng-class="{warning: trader.checked}">
-						<td class="text-center"><input type="checkbox" ng-model="trader.checked"></td>
-						<td>{{trader.codigo}}</td>
-						<td class="hidden-xs">{{trader.dataCompra}}</td>
-						<td class="hidden-xs">{{trader.dataVenda | date: 'dd/MM/yyyy'}}</td>
-						<td class="hidden-xs">{{trader.valorCompra | currency}}</td>
-						<td class="hidden-xs">{{trader.quantidade}}</td>
-						<td class="hidden-xs">{{trader.taxa | currency}}</td>
-						<td class="hidden-xs">{{trader.valorAtual | currency}}</td>
-						<td class="hidden-xs">{{trader.stop | currency}}</td>
-						<td class="hidden-xs">{{trader.gain | currency}}</td>
-						<td>{{trader.rendaAtual | currency}}</td>
-						<td>{{trader.percAtual | number:2}} %</td>
-					</tr>		
-				</tbody>
-			</table>
+			<div ng-show="traders.length > 0" class="traderList">
+				<div class="trader row" ng-repeat="trader in traders | filter: busca | orderBy:search:direcaoOrdenacao" ng-class="{warning: trader.checked}">
+					<div class="col-xs-12 listDatas">
+						<div class="bg-bolsa">
+							<div class="row">
+								<div class="col-xs-2">Data: {{trader.dataCompra}}</div>
+								<div class="col-xs-2">Compra: {{trader.valorCompra | currency}}</div>
+								<div class="col-xs-2">Quantidade: {{trader.quantidade}}</div>
+								<div class="col-xs-2">Taxa: {{trader.taxa | currency}}</div>
+								<div class="col-xs-2">Stop: {{trader.stop | currency}}</div>
+								<div class="col-xs-2">Gain: {{trader.gain | currency}}</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-1 checkbox-col text-center">
+						<input type="checkbox" ng-model="trader.checked">
+					</div>
+					<div class="col-xs-11">
+						<div class="row">
+							<h3 class="col-xs-3">{{trader.codigo}}</h3>
+							<h3 class="col-xs-3 text-right">{{trader.valorAtual | currency}}</h3>			
+							<h3 class="col-xs-3 text-right" ng-class="{'text-danger': (trader.rendaAtual < 0), 'text-success': (trader.rendaAtual >= 0)}">
+								<span ng-class="{'glyphicon glyphicon-arrow-down': (trader.rendaAtual < 0), 'glyphicon glyphicon-arrow-up': (trader.rendaAtual >= 0)}"></span>
+								{{trader.rendaAtual | currency}}
+							</h3>
+							<h3 class="col-xs-3 text-right" ng-class="{'text-danger': (trader.percAtual < 0), 'text-success': (trader.percAtual >= 0)}">
+								<span ng-class="{'glyphicon glyphicon-arrow-down': (trader.percAtual < 0), 'glyphicon glyphicon-arrow-up': (trader.percAtual >= 0)}"></span>
+								{{trader.percAtual | number:2}} %
+							</h3>
+						</div>
+					</div>	
+				</div>	
+			</div>
 
 			<div class="row" ng-if="ifTraderChecked(traders)">
 				<div class="col-xs-12 col-sm-6">
