@@ -61,42 +61,36 @@
  */
 
  .traderList {
- 	margin-bottom: 20px;
-	border: 1px solid #ddd;
+ 	margin-bottom: 40px;
  }
 
-.traderList .trader {
-	padding-bottom: 20px;
-	margin-left: 0 !important;
- 	margin-right: 0 !important;
+ .trader {
+ 	box-shadow: 0 27px 55px 0 rgba(0, 0, 0, 0.3), 0 17px 17px 0 rgba(0, 0, 0, 0.15);
+ 	border-radius: 4px;
+ }
+
+ .trader h2 {
+ 	color: #fff;
+ 	margin-top: 100px;
+ }
+
+ .trader .valueCurrency {
+ 	color: #fff;
+ 	margin-top: 40px;
+ }
+
+ .trader .text-danger {
+ 	color: #ff8989;
+ }
+
+.trader .text-success {
+ 	color: #76f45b;
 }
 
-.traderList .trader:nth-child(even) {
-	background-color: #e9e9e9;
+.imgCod {
+	height: 150px;
+	background-position: center; 
 }
-
-.traderList .trader:nth-child(odd) {
-	background-color: #fff;
-}
-
-.traderList .warning {
-	background-color: #fcf8e3 !important;
-}
-
-.traderList .checkbox-col {
-	padding-top: 23px;
-}
-
-.traderList .listDatas {
-	padding: 0;
-}
-
-.traderList .listDatas .bg-bolsa {
-	padding: 5px;
-	color: #bbb;
-	text-align: center;
-}
-
 /**
  * CELULAR
  */

@@ -60,14 +60,26 @@ class data {
 	public function getTraders() {
 		$db = $this->getConnection('traders');
 		$document = $db->find( array('trader.ativo' => true) );
+
 		foreach ($document as $key => $value) {
 			$value = $this->manipulateData($value);
-
+			
 			$json[] = $value['trader'];		
 		}
 
 		$json = json_encode($json);
 		echo $json;
+	}
+
+	public function getImage($paper) {
+		$db = $this->getConnection('imagePaper');
+		$document = $db->find( array('paper' => $paper) );
+		foreach ($document as $key => $value) {
+			$value = $this->manipulateData($value);
+			
+			$img = $value['img'];
+		}
+		return $img;
 	}
 
 	public function getTradersVendidas() {

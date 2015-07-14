@@ -26,37 +26,44 @@
 					<input class="form-control" type="search" ng-model="busca" placeholder="Busca">
 				</div>
 			</div>
-			<div ng-show="traders.length > 0" class="traderList">
-				<div class="trader row" ng-repeat="trader in traders | filter: busca | orderBy:search:direcaoOrdenacao" ng-class="{warning: trader.checked}">
-					<div class="col-xs-12 listDatas">
-						<div class="bg-bolsa">
-							<div class="row">
-								<div class="col-xs-2">Data: {{trader.dataCompra}}</div>
-								<div class="col-xs-2">Compra: {{trader.valorCompra | currency}}</div>
-								<div class="col-xs-2">Quantidade: {{trader.quantidade}}</div>
-								<div class="col-xs-2">Taxa: {{trader.taxa | currency}}</div>
-								<div class="col-xs-2">Stop: {{trader.stop | currency}}</div>
-								<div class="col-xs-2">Gain: {{trader.gain | currency}}</div>
+			<div ng-show="traders.length > 0" class="row traderList">
+				<div class="col-sm-4" ng-repeat="trader in traders | filter: busca | orderBy:search:direcaoOrdenacao" ng-class="{warning: trader.checked}">
+					<div class="trader">
+						<div class="imgCod" style="background-image: url('img/{{trader.codigo}}.jpg');">
+							<h2 class="col-xs-6">{{trader.codigo}}</h2>
+							<div class="col-xs-6">
+								<h4 class="text-right valueCurrency">{{trader.valorAtual | currency}}</h4>			
+								<h4 class="text-right" ng-class="{'text-danger': (trader.rendaAtual < 0), 'text-success': (trader.rendaAtual >= 0)}">
+									<span ng-class="{'glyphicon glyphicon-arrow-down': (trader.rendaAtual < 0), 'glyphicon glyphicon-arrow-up': (trader.rendaAtual >= 0)}"></span>
+									{{trader.rendaAtual | currency}}
+								</h4>
+								<h4 class="text-right" ng-class="{'text-danger': (trader.percAtual < 0), 'text-success': (trader.percAtual >= 0)}">
+									<span ng-class="{'glyphicon glyphicon-arrow-down': (trader.percAtual < 0), 'glyphicon glyphicon-arrow-up': (trader.percAtual >= 0)}"></span>
+									{{trader.percAtual | number:2}} %
+								</h4>
 							</div>
 						</div>
-					</div>
-					<div class="col-xs-1 checkbox-col text-center">
-						<input type="checkbox" ng-model="trader.checked">
-					</div>
-					<div class="col-xs-11">
-						<div class="row">
-							<h3 class="col-xs-3">{{trader.codigo}}</h3>
-							<h3 class="col-xs-3 text-right">{{trader.valorAtual | currency}}</h3>			
-							<h3 class="col-xs-3 text-right" ng-class="{'text-danger': (trader.rendaAtual < 0), 'text-success': (trader.rendaAtual >= 0)}">
-								<span ng-class="{'glyphicon glyphicon-arrow-down': (trader.rendaAtual < 0), 'glyphicon glyphicon-arrow-up': (trader.rendaAtual >= 0)}"></span>
-								{{trader.rendaAtual | currency}}
-							</h3>
-							<h3 class="col-xs-3 text-right" ng-class="{'text-danger': (trader.percAtual < 0), 'text-success': (trader.percAtual >= 0)}">
-								<span ng-class="{'glyphicon glyphicon-arrow-down': (trader.percAtual < 0), 'glyphicon glyphicon-arrow-up': (trader.percAtual >= 0)}"></span>
-								{{trader.percAtual | number:2}} %
-							</h3>
+						<div class="col-xs-1 checkbox-col text-center">
+							<br>
+							<input type="checkbox" ng-model="trader.checked">
 						</div>
-					</div>	
+						<div class="col-xs-11 listDatas">
+							<br>
+							<div class="bg-bolsa">
+								<div class="col-xs-6">
+									<p><strong>Data:</strong> {{trader.dataCompra}}</p>
+									<p><strong>Compra:</strong> {{trader.valorCompra | currency}}</p>
+									<p><strong>Quantidade:</strong> {{trader.quantidade}}</p>
+								</div>
+								<div class="col-xs-6">
+									<p><strong>Taxa:</strong> {{trader.taxa | currency}}</p>
+									<p><strong>Stop:</strong> {{trader.stop | currency}}</p>
+									<p><strong>Gain:</strong> {{trader.gain | currency}}</p>
+								</div>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+					</div>
 				</div>	
 			</div>
 
