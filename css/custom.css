@@ -60,6 +60,10 @@
  * TRADER LIST
  */
 
+.listDatas {
+ 	padding-bottom: 20px;
+ }
+ 
  .traderList {
  	margin-bottom: 40px;
  }

@@ -43,22 +43,20 @@
 								</h4>
 							</div>
 						</div>
-						<div class="col-xs-1 checkbox-col text-center">
-							<br>
-							<input type="checkbox" ng-model="trader.checked">
-						</div>
-						<div class="col-xs-11 listDatas">
+						<div class="col-xs-12 listDatas">
 							<br>
 							<div class="bg-bolsa">
 								<div class="col-xs-6">
 									<p><strong>Data:</strong> {{trader.dataCompra}}</p>
 									<p><strong>Compra:</strong> {{trader.valorCompra | currency}}</p>
 									<p><strong>Quantidade:</strong> {{trader.quantidade}}</p>
+									<button class="btn btn-success btn-block" ng-click="venderAcao(trader)">Vender Ação</button>
 								</div>
 								<div class="col-xs-6">
 									<p><strong>Taxa:</strong> {{trader.taxa | currency}}</p>
 									<p><strong>Stop:</strong> {{trader.stop | currency}}</p>
 									<p><strong>Gain:</strong> {{trader.gain | currency}}</p>
+									<button class="btn btn-danger btn-block" ng-click="apagarAcao(trader)">Apagar Ação</button>
 								</div>
 							</div>
 						</div>
@@ -67,18 +65,6 @@
 				</div>	
 			</div>
 
-			<div class="row" ng-if="ifTraderChecked(traders)">
-				<div class="col-xs-12 col-sm-6">
-					<div class="form-group">
-						<button class="btn btn-success btn-block" ng-click="venderAcao(traders)">Vender Ação</button>
-					</div>
-				</div>
-				<div class="col-xs-12 col-sm-6">
-					<div class="form-group">
-						<button class="btn btn-danger btn-block" ng-click="apagarAcao(traders)">Apagar Ação</button>
-					</div>
-				</div>
-			</div>
 
 			<form name="traderForm">
 				<div class="well">
