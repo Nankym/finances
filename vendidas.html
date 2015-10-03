@@ -35,7 +35,7 @@
 						<th class="hidden-xs"><a href="" ng-click="ordenaPor('valorCompra')">Valor Compra</a></th>
 						<th class="hidden-xs"><a href="" ng-click="ordenaPor('quantidade')">Quantidade</th>
 						<th class="hidden-xs"><a href="">Taxa</th>
-						<th class="hidden-xs"><a href="">Valor Atual</th>
+						<th class="hidden-xs"><a href="">Valor Vendido</th>
 						<th class="hidden-xs"><a href="">Stop</th>
 						<th class="hidden-xs"><a href="">Gain</th>
 						<th><a href="" ng-click="ordenaPor('rendaAtual')">Renda Atual</th>
@@ -50,7 +50,7 @@
 						<td class="hidden-xs">{{trader.valorCompra | currency}}</td>
 						<td class="hidden-xs">{{trader.quantidade}}</td>
 						<td class="hidden-xs">{{trader.taxa | currency}}</td>
-						<td class="hidden-xs">{{trader.valorAtual | currency}}</td>
+						<td class="hidden-xs">{{trader.valorVenda | currency}}</td>
 						<td class="hidden-xs">{{trader.stop | currency}}</td>
 						<td class="hidden-xs">{{trader.gain | currency}}</td>
 						<td>{{trader.rendaAtual | currency}}</td>

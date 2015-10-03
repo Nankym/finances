@@ -63,14 +63,11 @@
 .listDatas {
  	padding-bottom: 20px;
  }
- 
- .traderList {
- 	margin-bottom: 40px;
- }
 
  .trader {
  	box-shadow: 0 27px 55px 0 rgba(0, 0, 0, 0.3), 0 17px 17px 0 rgba(0, 0, 0, 0.15);
  	border-radius: 4px;
+ 	margin-bottom: 35px;
  }
 
  .trader h2 {
@@ -93,6 +90,7 @@
 
 .imgCod {
 	height: 150px;
+	background-color: #aaa;
 	background-position: center; 
 }
 /**

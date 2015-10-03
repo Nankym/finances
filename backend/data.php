@@ -19,7 +19,6 @@ class data {
 	public function deleteTrader() {
 		$postdata = file_get_contents("php://input");
 		$request = json_decode($postdata);
-
 		$db = $this->getConnection('traders');
 
 		$remove = $db->remove( array( 'trader.codigo' => $request->codigo, 'trader.dataCompra' => $request->dataCompra, 'trader.valorCompra' => $request->valorCompra));
@@ -29,9 +28,10 @@ class data {
 		$postdata = file_get_contents("php://input");
 		$request = json_decode($postdata);
 
+		$request = $this->requestAjustValue($request);
+
 		$db = $this->getConnection('traders');
-		$now = date("d/m/Y");
-		$update = $db->update( array( 'trader.codigo' => $request->codigo, 'trader.dataCompra' => $request->dataCompra, 'trader.valorCompra' => $request->valorCompra), array( '$set' => array('trader.ativo'=>false, 'trader.dataVenda'=>$now)));
+		$update = $db->update( array( 'trader.codigo' => $request->codigo, 'trader.dataCompra' => $request->dataCompra, 'trader.valorCompra' => $request->valorCompra), array( '$set' => array('trader.ativo'=>false, 'trader.dataVenda' => $request->dataVenda, 'trader.valorVenda' => $request->valorVenda)));
 	}
 
 	public function setTrader() {
@@ -39,6 +39,8 @@ class data {
 		$request = json_decode($postdata);
 		
 		$db = $this->getConnection('traders');
+
+		$request = $this->requestAjustValue($request);
 
 		$doc = array(
 		    "trader" => array(
@@ -86,7 +88,7 @@ class data {
 		$db = $this->getConnection('traders');
 		$document = $db->find( array('trader.ativo' => false) );
 		foreach ($document as $key => $value) {
-			$value = $this->manipulateData($value);
+			$value = $this->manipulateData($value, true);
 
 			$json[] = $value['trader'];		
 		}
@@ -104,7 +106,7 @@ class data {
 		return $collection;
 	}
 
-	protected function manipulateData($value) {
+	protected function manipulateData($value, $send = false) {
 		
 		/**
 		 * Resgata os dados diretamente da Bovespa
@@ -126,14 +128,30 @@ class data {
 		 */
 
 		$value['trader']['valorAtual'] = $valorAtual;
-		$value['trader']['rendaAtual'] = ( ( $valorAtual * $quantidade ) - ( ( $valorCompra * $quantidade ) + $taxa ));
-		$value['trader']['percAtual']  = ( ( ($valorAtual * $quantidade ) * 100 ) / ( ($valorCompra * $quantidade ) + $taxa ) ) -100;
+		if($send) {
+			$valorVenda = $value['trader']['valorVenda'];
+			$value['trader']['rendaAtual'] = ( ( $valorVenda * $quantidade ) - ( ( $valorCompra * $quantidade ) + $taxa ));
+			$value['trader']['percAtual']  = ( ( ($valorVenda * $quantidade ) * 100 ) / ( ($valorCompra * $quantidade ) + $taxa ) ) -100;
+		} else {
+			$value['trader']['rendaAtual'] = ( ( $valorAtual * $quantidade ) - ( ( $valorCompra * $quantidade ) + $taxa ));
+			$value['trader']['percAtual']  = ( ( ($valorAtual * $quantidade ) * 100 ) / ( ($valorCompra * $quantidade ) + $taxa ) ) -100;
+		}
 
 		/**
 		 * Retorna os dados no array de acordo com o que foi passado
 		 */
 
 		return $value;
+	}
+
+	protected function requestAjustValue($request) {
+		$request->valorCompra = str_replace(",", ".", $request->valorCompra);
+		$request->valorVenda = str_replace(",", ".", $request->valorVenda);
+		$request->taxa = str_replace(",", ".", $request->taxa);
+		$request->stop = str_replace(",", ".", $request->stop);
+		$request->gain = str_replace(",", ".", $request->gain);
+
+		return $request;
 	}
 }
 
