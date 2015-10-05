@@ -8,3 +8,7 @@ This system is being developed for sales and stock purchases.
 * DB: MongoDB
 * Backend: PHP
 * Interface: AngularJS, Javascript, JQuery, HTML, CSS
+
+## Screen
+
+https://github.com/Nankym/finances/blob/master/img/screen_exemple.png?raw=true
