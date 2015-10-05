@@ -30,8 +30,8 @@
 				<div class="col-sm-4" ng-repeat="trader in traders | filter: busca | orderBy:search:direcaoOrdenacao" ng-class="{warning: trader.checked}">
 					<div class="trader">
 						<div class="imgCod" style="background-image: url('img/{{trader.codigo}}.jpg');">
-							<h2 class="col-xs-6">{{trader.codigo}}</h2>
-							<div class="col-xs-6">
+							<h2 class="col-xs-7">{{trader.codigo}} <small class="text-left" ng-class="{'text-danger': (trader.oscilacao < 0), 'text-success': (trader.oscilacao >= 0)}">({{trader.oscilacao}})</small></h2>
+							<div class="col-xs-5">
 								<h4 class="text-right valueCurrency">{{trader.valorAtual | currency}}</h4>			
 								<h4 class="text-right" ng-class="{'text-danger': (trader.rendaAtual < 0), 'text-success': (trader.rendaAtual >= 0)}">
 									<span ng-class="{'glyphicon glyphicon-arrow-down': (trader.rendaAtual < 0), 'glyphicon glyphicon-arrow-up': (trader.rendaAtual >= 0)}"></span>

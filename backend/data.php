@@ -118,6 +118,7 @@ class data {
 		/**
 		 * Simplifica os dados e converte o que vem da bovespa para int
 		 */
+		$value['trader']['oscilacao'] = floatval(str_replace(',', '.', $valorAtual[$value['trader']['codigo']]['oscilacao']));
 		$valorAtual = floatval(str_replace(',', '.', $valorAtual[$value['trader']['codigo']]['ultimo']));
 		$quantidade = $value['trader']['quantidade'];
 		$valorCompra = $value['trader']['valorCompra'];
