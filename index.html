@@ -43,6 +43,9 @@
 								</h4>
 							</div>
 						</div>
+						<div class="col-xs-12 traderName well well-sm well-noRadius text-center">
+							{{trader.nome}}
+						</div>
 						<div class="col-xs-12 listDatas">
 							<br>
 							<div class="bg-bolsa">
@@ -57,8 +60,8 @@
 								</div>
 								<div class="col-xs-6">
 									<p><strong>Taxa:</strong> {{trader.taxa | currency}}</p>
-									<p><strong>Stop:</strong> {{trader.stop | currency}}</p>
-									<p><strong>Gain:</strong> {{trader.gain | currency}}</p>
+									<p><strong>Stop:</strong> <span ng-class="{'text-danger': (trader.valorAtual <= trader.stop)}">{{trader.stop | currency}}</span></p>
+									<p><strong>Gain:</strong> <span ng-class="{'text-success': (trader.valorAtual >= trader.gain)}">{{trader.gain | currency}}</span></p>
 									<div class="form-group">
 										<input type="text" class="form-control vendaCampo" placeholder="Data de Venda" ng-model="trader.dataVenda" ng-required="true">
 									</div>

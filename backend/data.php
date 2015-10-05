@@ -11,7 +11,6 @@ class data {
 		$this->$action();
 	}
 
-
 	public function index() {
 		
 	}
@@ -73,17 +72,6 @@ class data {
 		echo $json;
 	}
 
-	public function getImage($paper) {
-		$db = $this->getConnection('imagePaper');
-		$document = $db->find( array('paper' => $paper) );
-		foreach ($document as $key => $value) {
-			$value = $this->manipulateData($value);
-			
-			$img = $value['img'];
-		}
-		return $img;
-	}
-
 	public function getTradersVendidas() {
 		$db = $this->getConnection('traders');
 		$document = $db->find( array('trader.ativo' => false) );
@@ -95,15 +83,6 @@ class data {
 
 		$json = json_encode($json);
 		echo $json;
-	}
-
-	protected function getConnection($database) {
-		$connection = new MongoClient();
-		$db = $connection->$database;
-
-		$collection = $connection->database->$database;
-
-		return $collection;
 	}
 
 	protected function manipulateData($value, $send = false) {
@@ -118,17 +97,18 @@ class data {
 		/**
 		 * Simplifica os dados e converte o que vem da bovespa para int
 		 */
+		$value['trader']['nome'] = $valorAtual[$value['trader']['codigo']]['nome'];
 		$value['trader']['oscilacao'] = floatval(str_replace(',', '.', $valorAtual[$value['trader']['codigo']]['oscilacao']));
 		$valorAtual = floatval(str_replace(',', '.', $valorAtual[$value['trader']['codigo']]['ultimo']));
 		$quantidade = $value['trader']['quantidade'];
 		$valorCompra = $value['trader']['valorCompra'];
 		$taxa = $value['trader']['taxa'];
+		$value['trader']['valorAtual'] = $valorAtual;
 		
 		/**
 		 * Manipula os dados repassando o valor para o trader
 		 */
 
-		$value['trader']['valorAtual'] = $valorAtual;
 		if($send) {
 			$valorVenda = $value['trader']['valorVenda'];
 			$value['trader']['rendaAtual'] = ( ( $valorVenda * $quantidade ) - ( ( $valorCompra * $quantidade ) + $taxa ));
@@ -153,6 +133,16 @@ class data {
 		$request->gain = str_replace(",", ".", $request->gain);
 
 		return $request;
+	}
+
+
+	/** 
+	 * Função para conectar ao banco de dados
+	 */
+	protected function getConnection( $trader ) {
+		$mongo = new connectDB();
+		$db = $mongo->getConnection($trader);
+		return $db;
 	}
 }
 

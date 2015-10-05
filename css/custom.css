@@ -91,7 +91,13 @@
 .imgCod {
 	height: 150px;
 	background-color: #aaa;
+	background-image: url('../img/noImage.jpg');
 	background-position: center; 
+}
+
+.well-noRadius {
+	border-radius: 0;
+	margin-bottom: 0;
 }
 /**
  * CELULAR
