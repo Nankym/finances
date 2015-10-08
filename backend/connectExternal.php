@@ -9,7 +9,7 @@ class connectExternal {
 	public function index($codeBvmf = false) {
 		$json = array();
 		if(!$codeBvmf) {
-			$codeBvmf = str_replace("/", "", $_SERVER['PATH_INFO']);
+			$codeBvmf = end(explode("/", $_SERVER['REQUEST_URI']));
 		}
 		$link = "http://www.bmfbovespa.com.br/Pregao-Online/ExecutaAcaoAjax.asp?CodigoPapel=" . $codeBvmf; 
 		$xml = simplexml_load_file($link); 

@@ -1,5 +1,5 @@
 <?php
-	
+
 function __autoload($class_name) {
 	require_once $class_name . '.php';
 }
@@ -7,10 +7,9 @@ function __autoload($class_name) {
 class data {
 
 	function __construct () {
-		$action = str_replace("/", "", $_SERVER['PATH_INFO']);
+		$action = end(explode("/", $_SERVER['REQUEST_URI']));
 		$this->$action();
 	}
-
 	public function index() {
 		
 	}
