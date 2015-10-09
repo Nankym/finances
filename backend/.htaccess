@@ -1,0 +1,4 @@
+RewriteBase /backend
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^data/(.*)$ data.php [QSA,L]
