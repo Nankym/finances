@@ -10,12 +10,14 @@
 		<link rel="stylesheet" href="css/custom.css">
 		
 		<script type="text/javascript" src="lib/jquery/jquery.min.js"></script>
+		<script type="text/javascript" src="lib/jquery/jquery.mask.min.js"></script>
 		<script type="text/javascript" src="lib/bootstrap/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="lib/angular/angular.min.js"></script>
 		<script type="text/javascript" src="lib/angular/angular-locale_pt-br.js"></script>
 		
 		<script type="text/javascript" src="lib/js/apps/finances.js"></script>
 		<script type="text/javascript" src="lib/js/controllers/financesCtrl.js"></script>
+		<script type="text/javascript" src="lib/js/local/index.js"></script>
 
 	</head>
 	<body ng-controller="financesCtrl" id="financesCtrl">
@@ -55,7 +57,7 @@
 									<p><strong>Compra:</strong> {{trader.valorCompra | currency}}</p>
 									<p><strong>Quantidade:</strong> {{trader.quantidade}}</p>
 									<div class="form-group">
-										<input type="text" class="form-control vendaCampo" placeholder="Valor de Venda" ng-model="trader.valorVenda" ng-required="true">
+										<input type="text" class="form-control moneyMask vendaCampo" placeholder="Valor de Venda" ng-model="trader.valorVenda" ng-required="true">
 									</div>
 									<button class="btn btn-success btn-block" ng-click="venderAcao(trader)">Vender Ação</button>
 								</div>
@@ -64,7 +66,7 @@
 									<p><strong>Stop:</strong> <span ng-class="{'text-danger': (trader.valorAtual <= trader.stop)}">{{trader.stop | currency}}</span></p>
 									<p><strong>Gain:</strong> <span ng-class="{'text-success': (trader.valorAtual >= trader.gain)}">{{trader.gain | currency}}</span></p>
 									<div class="form-group">
-										<input type="text" class="form-control vendaCampo" placeholder="Data de Venda" ng-model="trader.dataVenda" ng-required="true">
+										<input type="text" class="form-control vendaCampo dateMask" placeholder="Data de Venda" ng-model="trader.dataVenda" ng-required="true">
 									</div>
 									<button class="btn btn-danger btn-block" ng-click="apagarAcao(trader)">Apagar Ação</button>
 								</div>
@@ -86,7 +88,7 @@
 						</div>
 						<div class="col-xs-6 col-sm-6">
 							<div class="form-group">
-								<input type="text" class="form-control" placeholder="Valor Compra" ng-model="trader.valorCompra" ng-required="true">
+								<input type="text" class="form-control moneyMask" placeholder="Valor Compra" ng-model="trader.valorCompra" ng-required="true">
 							</div>
 						</div>
 						<div class="col-xs-6 col-sm-4">
@@ -96,22 +98,22 @@
 						</div>
 						<div class="col-xs-6 col-sm-4">
 							<div class="form-group">
-								<input type="text" class="form-control" placeholder="Data Compra" ng-model="trader.dataCompra" ng-required="true">
+								<input type="text" class="form-control dateMask" placeholder="Data Compra" ng-model="trader.dataCompra" ng-required="true">
 							</div>
 						</div>
 						<div class="col-xs-6 col-sm-4">
 							<div class="form-group">
-								<input type="text" class="form-control" placeholder="Taxas" ng-model="trader.taxa">
+								<input type="text" class="form-control moneyMask" placeholder="Taxas" ng-model="trader.taxa">
 							</div>
 						</div>
 						<div class="col-xs-6 col-sm-6">
 							<div class="form-group">
-								<input type="text" class="form-control" placeholder="Stop" ng-model="trader.stop" ng-required="true">
+								<input type="text" class="form-control moneyMask" placeholder="Stop" ng-model="trader.stop" ng-required="true">
 							</div>
 						</div>
 						<div class="col-xs-6 col-sm-6">
 							<div class="form-group">
-								<input type="text" class="form-control" placeholder="Gain" ng-model="trader.gain" ng-required="true">
+								<input type="text" class="form-control moneyMask" placeholder="Gain" ng-model="trader.gain" ng-required="true">
 							</div>
 						</div>
 						<div class="col-xs-12">
